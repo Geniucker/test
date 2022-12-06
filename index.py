@@ -1,14 +1,17 @@
 from os import system
 from subprocess import getoutput
-from flask import Flask
+from flask import Flask, request
+from urllib.parse import urlencode
+import requests
 
 
-# app = Flask(__name__)
-# @app.route("/")
-# def index():
-system("subconverter/subconverter &")
-#    return getoutput("subconverter/subconverter")
+app = Flask(__name__)
+@app.route("/")
+def index():
+    args = request.args
+    return requests.get("http://localhost:1234/sub?"+urlencode(args)).text, {'Content-Type': 'text/yaml;charset=utf-8'}
 
 
-#if __name__ == "__main__":
-#    app.run(host="0.0.0.0", port=221, debug=True)
+if __name__ == "__main__":
+    system("subconverter/subconverter &")
+    app.run(host="0.0.0.0", port=221, debug=True)
