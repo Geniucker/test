@@ -3,6 +3,7 @@ from subprocess import getoutput
 from flask import Flask, request
 from urllib.parse import urlencode
 import requests
+from ping3 import ping
 
 
 app = Flask(__name__)
@@ -10,7 +11,7 @@ app = Flask(__name__)
 def index():
     args = request.args
     # return requests.get("http://127.0.0.1:1234/sub?"+urlencode(args)).text, {'Content-Type': 'text/yaml;charset=utf-8'}
-    return getoutput("ping localhost -c 1")
+    return ping('localhost')
 
 if __name__ == "__main__":
     system("subconverter/subconverter &")
