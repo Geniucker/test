@@ -1,4 +1,13 @@
 from os import system
+from subprocess import getoutput
+from flask import Flask
 
 
-system("subconverter/subconverter")
+app = Flask(__name__)
+@app.route("/")
+def index():
+    return getoutput("subconverter/subconverter")
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=221, debug=True)
